@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: linkding
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: linkding          # (A)
+  template:
+    metadata:
+      labels:
+        app: linkding        # (B) ← совпадает с (A)
+    spec:
+      containers:
+        - name: linkding
+          image: sissbruecker/linkding:1.31.0   # реальный образ linkding
+          ports:
+            - containerPort: 9090   # порт, который слушает linkding
