@@ -6,24 +6,21 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: linkding          # (A)
+      app: linkding
   template:
     metadata:
       labels:
-        app: linkding        # (B) ← совпадает с (A)
+        app: linkding
     spec:
       containers:
         - name: linkding
-          image: sissbruecker/linkding:1.31.0   # реальный образ linkding
+          image: sissbruecker/linkding:1.31.0
           ports:
-            - containerPort: 9090   # порт, который слушает linkding
-        volumeMounts:      # inside container - where to mount
-          - name: linkding-volume 
-            mountPath: /etc/linkding/data
-      volumes:             # pod level - which disks are available
+            - containerPort: 9090
+          volumeMounts:
+            - name: linkding-volume
+              mountPath: /etc/linkding/data
+      volumes:
         - name: linkding-volume
           persistentVolumeClaim:
             claimName: linkding-claim
-
-
-
