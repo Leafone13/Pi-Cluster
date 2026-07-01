@@ -17,3 +17,13 @@ spec:
           image: sissbruecker/linkding:1.31.0   # реальный образ linkding
           ports:
             - containerPort: 9090   # порт, который слушает linkding
+        volumeMounts:      # inside container - where to mount
+          - name: linkding-volume 
+            mountPath: /etc/linkding/data
+      volumes:             # pod level - which disks are available
+        - name: linkding-volume
+          persistentVolumeClaim:
+            claimName: linkding-claim
+
+
+

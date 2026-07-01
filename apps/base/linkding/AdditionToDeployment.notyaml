@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: linkding 
+        image: sissbruecker/linkding:1.31.0
+        volumeMounts:      # inside container - where to mount
+          - name: volume-name
+            mountPath: /etc/linkding/data
+      volumes:             # pod level - which disks are available
+        - name: linkding-volume
+          persistentVolumeClaim:
+            claimName: linkding-claim
+
