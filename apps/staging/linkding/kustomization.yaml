@@ -6,3 +6,4 @@ resources:
   - cloudflare.yaml
   - tunnel-credentials.yaml
   - linkding-admin-secret.yaml
+  - ingress.yaml
