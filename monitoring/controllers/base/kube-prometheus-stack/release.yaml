@@ -9,9 +9,6 @@ spec:
     spec:
       chart: kube-prometheus-stack
       version: "87.15.1"
-
-      # version: "58.x"
-
       sourceRef:
         kind: HelmRepository
         name: kube-prometheus-stack
@@ -31,3 +28,12 @@ spec:
   values:
     grafana:
       adminPassword: test
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        hosts:
+           - grf.amiolas.net
+        tls: 
+         - secretName: grafana-tls-secret
+           hosts:
+             - grf.amiolas.net 
