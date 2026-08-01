@@ -31,7 +31,7 @@ spec:
     requests:
       storage: 1Gi
 ---
-Lind: PersistentVolumeClaim
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: audiobookshelf-podcasts
