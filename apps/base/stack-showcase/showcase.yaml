@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stack-showcase
+  namespace: stack-showcase
+  labels:
+    app: stack-showcase
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stack-showcase
+  template:
+    metadata:
+      labels:
+        app: stack-showcase
+    spec:
+      containers:
+        - name: showcase
+          image: ghcr.io/leafone13/stack-showcase:latest
+          ports:
+            - containerPort: 8000
+          env:
+            - name: PROMETHEUS_URL
+              value: "http://kube-prometheus-stack-prometheus.monitoring.svc.cluster.local:9090"
+          resources:
+            requests:
+              cpu: 25m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
