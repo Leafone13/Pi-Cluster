@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forgejo
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: forgejo
+  template:
+    metadata:
+      labels:
+        app: forgejo
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        runAsNonRoot: true
+      containers:
+        - name: forgejo
+          image: codeberg.org/forgejo/forgejo:16-rootless
+          envFrom:
+            - configMapRef:
+                name: forgejo-config
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 150Mi
+            limits:
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3000
+            failureThreshold: 3
+            initialDelaySeconds: 30
+          readinessProbe: 
+            httpGet:
+              path: /api/healthz
+              port: 3000
+            failureThreshold: 3
+            initialDelaySeconds: 15
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: forgejo-data
+      initContainers:
+        - name: init-permission
+          image: busybox
+          command: ["sh", "-c", "chown -R 1000:1000 /data"]
+          securityContext: 
+            runAsUser: 0 
+          volumeMounts:
+          - name: data
+            mountPath: /data
+          
