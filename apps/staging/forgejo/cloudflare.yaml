@@ -61,5 +61,5 @@ data:
     no-autoupdate: true
     ingress:
       - hostname: git.amiolas.net
-        service: http:/forgejo:3000
+        service: http://forgejo:3000
       - service: http_status:404
