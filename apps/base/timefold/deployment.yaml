@@ -23,10 +23,12 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: timefold
-          image: ghcr.io/leafone13/yaya:v0.8.3
+          image: ghcr.io/leafone13/yaya:v0.8.4
           securityContext:
             readOnlyRootFilesystem: true
           env:
+            - name: QUARKUS_HTTP_ACCESS_LOG_ENABLED
+              value: "true"
             - name: QUARKUS_HTTP_AUTH_SESSION_ENCRYPTION_KEY
               valueFrom:
                 secretKeyRef:
