@@ -50,13 +50,13 @@ spec:
               mountPath: /tmp
           livenessProbe:
             httpGet:
-              path: /login.html
+              path: /q/openapi
               port: 8080
             failureThreshold: 3
             initialDelaySeconds: 30
           readinessProbe:
             httpGet:
-              path: /login.html
+              path: /q/openapi
               port: 8080
             failureThreshold: 3
             initialDelaySeconds: 15
