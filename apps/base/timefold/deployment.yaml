@@ -29,6 +29,8 @@ spec:
           env:
             - name: QUARKUS_HTTP_ACCESS_LOG_ENABLED
               value: "true"
+            - name: QUARKUS_HTTP_ACCESS_LOG_EXCLUDE_PATTERN
+              value: "/login\\.html|/q/openapi"
             - name: QUARKUS_HTTP_AUTH_SESSION_ENCRYPTION_KEY
               valueFrom:
                 secretKeyRef:
