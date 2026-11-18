@@ -21,7 +21,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: forgejo
-          image: codeberg.org/forgejo/forgejo:16-rootless
+          image: codeberg.org/forgejo/forgejo:17-rootless
           envFrom:
             - configMapRef:
                 name: forgejo-config
